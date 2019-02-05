@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { func } from 'prop-types';
 
 import unsplashImageType from '../types/unsplashImageType';
 
@@ -9,12 +10,17 @@ export default class ImageCard extends Component {
 
   onFavoriteClick = (e) => {
     const { isFavorited } = this.state;
-    const { image, addFavorite } = this.props;
+    const { image, addFavorite, removeFavorite } = this.props;
 
     e.preventDefault();
 
-    this.setState({ isFavorited: !isFavorited });
-    addFavorite(image);
+    if (!isFavorited) {
+      this.setState({ isFavorited: true });
+      addFavorite(image);
+    } else {
+      this.setState({ isFavorited: !isFavorited });
+      removeFavorite(image);
+    }
   }
 
   buttonText = () => {
@@ -40,4 +46,6 @@ export default class ImageCard extends Component {
 
 ImageCard.propTypes = {
   image: unsplashImageType.isRequired,
+  addFavorite: func.isRequired,
+  removeFavorite: func.isRequired,
 };

@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 
 import SearchBar from './SearchBar';
 import ImageList from './ImageList';
+import FavoriteList from './FavoriteList';
 import unsplash from '../apis/unsplash';
 
 export default class App extends Component {
   state = {
     images: [],
     favoriteImages: [],
-    imagesLoaded: false,
   }
 
   onSearchSubmit = async (query) => {
@@ -19,7 +19,6 @@ export default class App extends Component {
     });
 
     this.setState({ images: res.data.results });
-    this.setState({ imagesLoaded: true });
   }
 
   onAddFavorite = (image) => {
@@ -27,10 +26,18 @@ export default class App extends Component {
     this.setState({ favoriteImages: [...favoriteImages, image] });
   }
 
-  renderImageList = () => {
-    const { images, imagesLoaded } = this.state;
+  onRemoveFavorite = (image) => {
+    const { favoriteImages } = this.state;
 
-    if (!imagesLoaded) {
+    this.setState({
+      favoriteImages: favoriteImages.filter(favoriteImage => favoriteImage !== image),
+    });
+  }
+
+  renderImageList = () => {
+    const { images } = this.state;
+
+    if (images.length === 0) {
       return (
         <div>
           What would you like to search for?
@@ -38,7 +45,11 @@ export default class App extends Component {
       );
     }
     return (
-      <ImageList images={images} addFavorite={this.onAddFavorite} />
+      <ImageList
+        images={images}
+        addFavorite={this.onAddFavorite}
+        removeFavorite={this.onRemoveFavorite}
+      />
     );
   }
 
@@ -47,6 +58,7 @@ export default class App extends Component {
       <div>
         <SearchBar onSearchSubmit={this.onSearchSubmit} />
         {this.renderImageList()}
+        <FavoriteList images={this.state.favoriteImages} removeFavorite={this.onRemoveFavorite} />
       </div>
     );
   }
