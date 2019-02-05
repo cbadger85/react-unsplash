@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import { arrayOf, func } from 'prop-types';
 
 import ImageCard from './ImageCard';
@@ -7,8 +8,10 @@ import unsplashImageType from '../types/unsplashImageType';
 const ImageList = ({
   images, favoriteImages, addFavorite, removeFavorite,
 }) => {
+  const favoriteImageIds = favoriteImages.map(favoriteImage => favoriteImage.id);
+
   const imageResults = images.map(image => (
-    favoriteImages.includes(image) ? (
+    favoriteImageIds.includes(image.id) ? (
       <ImageCard
         key={image.id}
         image={image}
@@ -28,9 +31,11 @@ const ImageList = ({
   ));
 
   return (
-    <div>
-      {imageResults}
-    </div>
+    <>
+      <ImageGrid>
+        {imageResults}
+      </ImageGrid>
+    </>
   );
 };
 
@@ -43,10 +48,10 @@ ImageList.propTypes = {
   removeFavorite: func.isRequired,
 };
 
-// const imageResults = images.map(image => (
-//   <ImageCard
-//     key={image.id}
-//     image={image}
-//     addFavorite={addFavorite}
-//     removeFavorite={removeFavorite}
-//   />
+const ImageGrid = styled.div`
+  width: 70%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  margin: auto;
+  margin-bottom: 300px;
+`;

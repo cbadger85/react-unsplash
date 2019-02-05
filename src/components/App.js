@@ -4,6 +4,7 @@ import SearchBar from './SearchBar';
 import ImageList from './ImageList';
 import FavoriteList from './FavoriteList';
 import unsplash from '../apis/unsplash';
+import '../style.css';
 
 export default class App extends Component {
   state = {
@@ -30,7 +31,7 @@ export default class App extends Component {
     const { favoriteImages } = this.state;
 
     this.setState({
-      favoriteImages: favoriteImages.filter(favoriteImage => favoriteImage !== image),
+      favoriteImages: favoriteImages.filter(favoriteImage => favoriteImage.id !== image.id),
     });
   }
 
@@ -54,12 +55,23 @@ export default class App extends Component {
     );
   }
 
+  renderFavorites = () => {
+    const { favoriteImages } = this.state;
+
+    if (favoriteImages.length === 0) {
+      return <div />;
+    }
+    return (
+      <FavoriteList images={favoriteImages} removeFavorite={this.onRemoveFavorite} />
+    );
+  }
+
   render() {
     return (
       <div>
         <SearchBar onSearchSubmit={this.onSearchSubmit} />
         {this.renderImageList()}
-        <FavoriteList images={this.state.favoriteImages} removeFavorite={this.onRemoveFavorite} />
+        {this.renderFavorites()}
       </div>
     );
   }
