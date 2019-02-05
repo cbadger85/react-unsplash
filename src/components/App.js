@@ -35,7 +35,7 @@ export default class App extends Component {
   }
 
   renderImageList = () => {
-    const { images } = this.state;
+    const { images, favoriteImages } = this.state;
 
     if (images.length === 0) {
       return (
@@ -47,6 +47,7 @@ export default class App extends Component {
     return (
       <ImageList
         images={images}
+        favoriteImages={favoriteImages}
         addFavorite={this.onAddFavorite}
         removeFavorite={this.onRemoveFavorite}
       />

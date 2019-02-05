@@ -1,51 +1,31 @@
-import React, { Component } from 'react';
-import { func } from 'prop-types';
+import React from 'react';
+import { func, bool } from 'prop-types';
 
 import unsplashImageType from '../types/unsplashImageType';
 
-export default class ImageCard extends Component {
-  state = {
-    isFavorited: false,
-  }
+const ImageCard = ({
+  image, addFavorite, removeFavorite, isFavorited,
+}) => (
+  <div>
+    <img
+      src={image.urls.regular}
+      alt={image.description}
+    />
+    {isFavorited
+      ? <button type="button" onClick={() => removeFavorite(image)}>Unfavorite</button>
+      : <button type="button" onClick={() => addFavorite(image)}>Favorite</button>}
+  </div>
+);
 
-  onFavoriteClick = (e) => {
-    const { isFavorited } = this.state;
-    const { image, addFavorite, removeFavorite } = this.props;
+export default ImageCard;
 
-    e.preventDefault();
-
-    if (!isFavorited) {
-      this.setState({ isFavorited: true });
-      addFavorite(image);
-    } else {
-      this.setState({ isFavorited: !isFavorited });
-      removeFavorite(image);
-    }
-  }
-
-  buttonText = () => {
-    const { isFavorited } = this.state;
-
-    if (isFavorited) return 'Unfavorite';
-    return 'Favorite';
-  }
-
-  render() {
-    const { image } = this.props;
-    return (
-      <div>
-        <img
-          src={image.urls.regular}
-          alt={image.description}
-        />
-        <button type="button" onClick={this.onFavoriteClick}>{this.buttonText()}</button>
-      </div>
-    );
-  }
-}
+ImageCard.defaultProps = {
+  isFavorited: false,
+};
 
 ImageCard.propTypes = {
   image: unsplashImageType.isRequired,
   addFavorite: func.isRequired,
   removeFavorite: func.isRequired,
+  isFavorited: bool,
 };
