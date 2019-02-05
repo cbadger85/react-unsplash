@@ -7,6 +7,7 @@ import unsplash from '../apis/unsplash';
 export default class App extends Component {
   state = {
     images: [],
+    favoriteImages: [],
     imagesLoaded: false,
   }
 
@@ -21,6 +22,11 @@ export default class App extends Component {
     this.setState({ imagesLoaded: true });
   }
 
+  onAddFavorite = (image) => {
+    const { favoriteImages } = this.state;
+    this.setState({ favoriteImages: [...favoriteImages, image] });
+  }
+
   renderImageList = () => {
     const { images, imagesLoaded } = this.state;
 
@@ -32,7 +38,7 @@ export default class App extends Component {
       );
     }
     return (
-      <ImageList images={images} />
+      <ImageList images={images} addFavorite={this.onAddFavorite} />
     );
   }
 

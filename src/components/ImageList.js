@@ -1,11 +1,15 @@
 import React from 'react';
+import { arrayOf, func } from 'prop-types';
 
-const ImageList = ({ images }) => {
+import ImageCard from './ImageCard';
+import unsplashImageType from '../types/unsplashImageType';
+
+const ImageList = ({ images, addFavorite }) => {
   const imageResults = images.map(image => (
-    <img
+    <ImageCard
       key={image.id}
-      src={image.urls.regular}
-      alt={image.description}
+      image={image}
+      addFavorite={addFavorite}
     />
 
   ));
@@ -17,3 +21,8 @@ const ImageList = ({ images }) => {
 };
 
 export default ImageList;
+
+ImageList.propTypes = {
+  images: arrayOf(unsplashImageType).isRequired,
+  addFavorite: func.isRequired,
+};
