@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 
 import SearchBar from './SearchBar';
 import ImageList from './ImageList';
@@ -40,9 +41,9 @@ export default class App extends Component {
 
     if (images.length === 0) {
       return (
-        <div>
+        <BlankSearch>
           What would you like to search for?
-        </div>
+        </BlankSearch>
       );
     }
     return (
@@ -69,6 +70,11 @@ export default class App extends Component {
   render() {
     return (
       <div>
+        <Header>
+          <h1>
+            React + Unsplash
+          </h1>
+        </Header>
         <SearchBar onSearchSubmit={this.onSearchSubmit} />
         {this.renderImageList()}
         {this.renderFavorites()}
@@ -76,3 +82,25 @@ export default class App extends Component {
     );
   }
 }
+
+const BlankSearch = styled.div`
+display: flex;
+justify-content: center;
+align-items: center;
+width: 100%;
+height: 500px;
+font-size: 24px;
+`;
+
+const Header = styled.header`
+background: #222;
+color: #e1e1e1;
+height: 100px;
+display: flex;
+justify-content: center;
+align-items: center;
+
+h1 {
+  margin: 0;
+}
+`;

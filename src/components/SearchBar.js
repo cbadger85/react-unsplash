@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 import { func } from 'prop-types';
 
 export default class SearchBar extends Component {
@@ -19,16 +20,19 @@ export default class SearchBar extends Component {
     const { searchValue } = this.state;
 
     return (
-      <form onSubmit={this.onFormSubmit}>
-        <label htmlFor="search">Image to search for...
-          <input
-            value={searchValue}
-            onChange={e => this.setState({ searchValue: e.target.value })}
-            type="text"
-            id="search"
-          />
-        </label>
-      </form>
+      <SearchArea>
+        <form onSubmit={this.onFormSubmit}>
+          <label htmlFor="search">
+              Search for an image
+            <input
+              value={searchValue}
+              onChange={e => this.setState({ searchValue: e.target.value })}
+              type="text"
+              id="search"
+            />
+          </label>
+        </form>
+      </SearchArea>
     );
   }
 }
@@ -36,3 +40,20 @@ export default class SearchBar extends Component {
 SearchBar.propTypes = {
   onSearchSubmit: func.isRequired,
 };
+
+const SearchArea = styled.div`
+background: #333;
+color: #e4d4d4;
+height: 64px;
+
+form {
+  font-size: 18px;
+  margin: auto;
+  width: 70%;
+}
+
+input {
+  width: 100%;
+  margin-top: 5px;
+}
+`;

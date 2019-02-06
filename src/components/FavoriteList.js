@@ -52,6 +52,7 @@ const FavoriteBox = styled.div`
 
   img {
     max-height: 150px;
+    box-shadow: 2px 2px 20px #888;
   }
 
   button {
