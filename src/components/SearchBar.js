@@ -23,13 +23,16 @@ export default class SearchBar extends Component {
       <SearchArea>
         <form onSubmit={this.onFormSubmit}>
           <label htmlFor="search">
-              Search for an image
-            <input
-              value={searchValue}
-              onChange={e => this.setState({ searchValue: e.target.value })}
-              type="text"
-              id="search"
-            />
+            Search for an image
+            <div>
+              <input
+                value={searchValue}
+                onChange={e => this.setState({ searchValue: e.target.value })}
+                type="text"
+                id="search"
+              />
+              <button type="submit">Go!</button>
+            </div>
           </label>
         </form>
       </SearchArea>
@@ -55,5 +58,16 @@ form {
 input {
   width: 100%;
   margin-top: 5px;
+  height: 18px;
+}
+
+div {
+  display: flex;
+}
+
+button {
+  height: 24px;
+  margin-top: 5px;
+  margin-left: 10px;
 }
 `;

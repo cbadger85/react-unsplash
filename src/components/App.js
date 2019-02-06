@@ -97,7 +97,6 @@ export default class App extends Component {
         <SearchBar onSearchSubmit={this.onSearchSubmit} />
         {this.renderImageList()}
         {this.renderFavorites()}
-        <button type="button" onClick={this.onToggleModal}>Modal</button>
         {displayModal && <Modal toggleModal={this.onToggleModal} image={modalImage} />}
       </div>
     );
