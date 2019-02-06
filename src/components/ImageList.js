@@ -6,7 +6,7 @@ import ImageCard from './ImageCard';
 import unsplashImageType from '../types/unsplashImageType';
 
 const ImageList = ({
-  images, favoriteImages, addFavorite, removeFavorite,
+  images, favoriteImages, addFavorite, removeFavorite, clickImage,
 }) => {
   const favoriteImageIds = favoriteImages.map(favoriteImage => favoriteImage.id);
 
@@ -17,6 +17,7 @@ const ImageList = ({
         image={image}
         addFavorite={addFavorite}
         removeFavorite={removeFavorite}
+        clickImage={clickImage}
         isFavorited
       />
     )
@@ -26,6 +27,7 @@ const ImageList = ({
           image={image}
           addFavorite={addFavorite}
           removeFavorite={removeFavorite}
+          clickImage={clickImage}
         />
       )
   ));
@@ -46,6 +48,7 @@ ImageList.propTypes = {
   favoriteImages: arrayOf(unsplashImageType).isRequired,
   addFavorite: func.isRequired,
   removeFavorite: func.isRequired,
+  clickImage: func.isRequired,
 };
 
 const ImageGrid = styled.div`

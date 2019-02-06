@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { arrayOf, func } from 'prop-types';
 import unsplashImageType from '../types/unsplashImageType';
 
-const FavoriteList = ({ images, removeFavorite }) => (
+const FavoriteList = ({ images, removeFavorite, clickImage }) => (
   <>
     <FavoriteBox>
       {images.map(image => (
@@ -12,6 +12,7 @@ const FavoriteList = ({ images, removeFavorite }) => (
           <img
             src={image.urls.regular}
             alt={image.description}
+            onClick={() => clickImage(image)}
           />
           <button type="button" onClick={() => removeFavorite(image)}>Remove</button>
         </div>
@@ -53,6 +54,7 @@ const FavoriteBox = styled.div`
   img {
     max-height: 150px;
     box-shadow: 2px 2px 20px #888;
+    cursor: pointer;
   }
 
   button {

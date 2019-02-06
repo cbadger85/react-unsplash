@@ -5,13 +5,14 @@ import { func, bool } from 'prop-types';
 import unsplashImageType from '../types/unsplashImageType';
 
 const ImageCard = ({
-  image, addFavorite, removeFavorite, isFavorited,
+  image, addFavorite, removeFavorite, isFavorited, clickImage,
 }) => (
   <>
     <Image>
       <img
         src={image.urls.regular}
         alt={image.description}
+        onClick={() => clickImage(image)}
       />
       {isFavorited
         ? <button type="button" onClick={() => removeFavorite(image)}>Unfavorite</button>
@@ -31,6 +32,7 @@ ImageCard.propTypes = {
   addFavorite: func.isRequired,
   removeFavorite: func.isRequired,
   isFavorited: bool,
+  clickImage: func,
 };
 
 const Image = styled.div`
@@ -46,7 +48,6 @@ const Image = styled.div`
 
   img {
     max-width: 150px;
-    /* max-height: 300px; */
   }
 
   button {

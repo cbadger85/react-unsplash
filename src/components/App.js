@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import SearchBar from './SearchBar';
 import ImageList from './ImageList';
 import FavoriteList from './FavoriteList';
+import Modal from './Modal';
 import unsplash from '../apis/unsplash';
 import '../style.css';
 
@@ -11,6 +12,8 @@ export default class App extends Component {
   state = {
     images: [],
     favoriteImages: [],
+    displayModal: false,
+    modalImage: null,
   }
 
   onSearchSubmit = async (query) => {
@@ -36,6 +39,16 @@ export default class App extends Component {
     });
   }
 
+  onToggleModal = () => {
+    const { displayModal } = this.state;
+    this.setState({ displayModal: !displayModal });
+  }
+
+  onClickImage = (image) => {
+    this.setState({ modalImage: image });
+    this.onToggleModal();
+  }
+
   renderImageList = () => {
     const { images, favoriteImages } = this.state;
 
@@ -52,6 +65,7 @@ export default class App extends Component {
         favoriteImages={favoriteImages}
         addFavorite={this.onAddFavorite}
         removeFavorite={this.onRemoveFavorite}
+        clickImage={this.onClickImage}
       />
     );
   }
@@ -63,11 +77,16 @@ export default class App extends Component {
       return <div />;
     }
     return (
-      <FavoriteList images={favoriteImages} removeFavorite={this.onRemoveFavorite} />
+      <FavoriteList
+        images={favoriteImages}
+        removeFavorite={this.onRemoveFavorite}
+        clickImage={this.onClickImage}
+      />
     );
   }
 
   render() {
+    const { displayModal, modalImage } = this.state;
     return (
       <div>
         <Header>
@@ -78,6 +97,8 @@ export default class App extends Component {
         <SearchBar onSearchSubmit={this.onSearchSubmit} />
         {this.renderImageList()}
         {this.renderFavorites()}
+        <button type="button" onClick={this.onToggleModal}>Modal</button>
+        {displayModal && <Modal toggleModal={this.onToggleModal} image={modalImage} />}
       </div>
     );
   }
