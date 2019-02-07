@@ -9,11 +9,12 @@ const FavoriteList = ({ images, removeFavorite, clickImage }) => (
     <FavoriteBox>
       {images.map(image => (
         <div key={image.id}>
-          <img
-            src={image.urls.regular}
-            alt={image.description}
-            onClick={() => clickImage(image)}
-          />
+          <button className="image-button" type="button" onClick={() => clickImage(image)}>
+            <img
+              src={image.urls.regular}
+              alt={image.description}
+            />
+          </button>
           <button type="button" onClick={() => removeFavorite(image)}>Remove</button>
         </div>
       ))}
@@ -54,7 +55,18 @@ const FavoriteBox = styled.div`
   img {
     max-height: 150px;
     box-shadow: 2px 2px 20px #888;
+  }
+
+  .image-button {
+    box-shadow: 8px 8px 30px #ddd;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   button {

@@ -9,11 +9,12 @@ const ImageCard = ({
 }) => (
   <>
     <Image>
-      <img
-        src={image.urls.regular}
-        alt={image.description}
-        onClick={() => clickImage(image)}
-      />
+      <button className="image-button" type="button" onClick={() => clickImage(image)}>
+        <img
+          src={image.urls.regular}
+          alt={image.description}
+        />
+      </button>
       {isFavorited
         ? <button type="button" onClick={() => removeFavorite(image)}>Unfavorite</button>
         : <button type="button" onClick={() => addFavorite(image)}>Favorite</button>}
@@ -48,6 +49,18 @@ const Image = styled.div`
 
   img {
     max-width: 150px;
+  }
+
+  .image-button {
+    box-shadow: 8px 8px 30px #ddd;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   button {
